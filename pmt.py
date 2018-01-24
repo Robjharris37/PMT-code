@@ -119,7 +119,7 @@ class pmt(object):
             else:
                 print("That didn't work,returned {}".format(test))
 
-if __name__ == 'Main':
+if __name__ == '__main__':
 
     pmt_test = pmt() #initialise PMT
     
