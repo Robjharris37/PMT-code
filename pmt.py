@@ -54,7 +54,7 @@ class pmt(object):
 
     def find_com_port(self):
         '''Maybe we will need to find the com port
-        so stolen from
+        so taken from
         https://stackoverflow.com/questions/12090503/listing-available-com-ports-with-python
         '''
 
