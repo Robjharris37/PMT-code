@@ -34,7 +34,7 @@ class pmt(object):
     def __init__(self,):
         ''' intialise the PMT, set the initial values'''
 
-        self.com_port = "COM5"
+        self.com_port = "/dev/ttyUSB0"
 
         try:
             self.control = serial.Serial(self.com_port)
@@ -44,11 +44,12 @@ class pmt(object):
 
         #setup initial parameters
 
-        self.control.write(b"R01\r")
+        self.control.write(b"R\x01\r")
         print("setting R = 01")
-
-        self.control.write(b"P10\r")
-        print("setting P = 10")
+        self.check_command()
+        self.control.write(b"P\x14\r")
+        print("setting P = 20")
+        self.check_command()
         #Set sequence of readings to 1 self.pmt. "R\x01\r", 3, "setting R = 01");
         #Set number of intervals to sum - send_cmd_and_chk( "P\x0a\r", 3, "setting P = 10");
 
@@ -70,7 +71,7 @@ class pmt(object):
     def voltage_off(self):
 
          #"V\x00\x00\r", 4, "shutting off HV"
-        self.control.write(b"V00r")
+        self.control.write(b"V\x00\x00r")
         self.check_command()
         print('High voltage off')
 
@@ -111,7 +112,7 @@ class pmt(object):
         #set command
 
     def check_command(self):
-        no_bytes = self.inWaiting()
+        no_bytes = self.control.inWaiting()
         if no_bytes != 0:
             test = self.control.read(no_bytes)
             if test == "VA":
@@ -121,5 +122,5 @@ class pmt(object):
 
 if __name__ == '__main__':
 
-    pmt_test = pmt() #initialise PMT
+    pmt = pmt() #initialise PMT
     
