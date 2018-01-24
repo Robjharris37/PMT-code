@@ -121,5 +121,5 @@ class pmt(object):
 
 if __name__ == 'Main':
 
-    pmt = pmt() #initialise PMT
+    pmt_test = pmt() #initialise PMT
     
